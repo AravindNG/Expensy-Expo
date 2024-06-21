@@ -1,0 +1,1 @@
+export const REACT_APP_API_URL='http://192.168.216.119:5000/api';

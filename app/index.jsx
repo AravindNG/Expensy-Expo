@@ -5,8 +5,24 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { images } from '../constants';
 import CustomButton from '../components/CustomButton';
+import { useEffect } from 'react';
+import {SecureStore} from 'expo';
 
 export default function App() {
+  async function getToken(){
+    if(!SecureStore)return null;
+    const token = await SecureStore.getItemAsync('secure_token');
+    return token;
+  }
+  useEffect(()=>{
+    const token = getToken();
+    // console.log("token"+JSON.stringify(token));
+    if(token){
+      setTimeout(()=>{
+        router.push('/(tabs)/home');
+      },200);
+    }
+  },[SecureStore]);
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{height : '100%'}}>
